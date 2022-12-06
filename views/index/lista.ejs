@@ -1,0 +1,20 @@
+<%- include("../cabecalho") %>
+
+<%- include("../cabecalho-usuario") %>
+
+<p>
+	Eu sou a página da rota /lista e vou listar as pessoas do banco!
+</p>
+
+<% for (let i = 0; i < pessoas.length; i++) { %>
+
+<hr />
+<div>
+	<h1><%= pessoas[i].nome %></h1>
+	<p><%= pessoas[i].email %></p>
+	<p><img src="/public/images/pessoas/<%= pessoas[i].id %>.jpg" width="100" /></p>
+</div>
+
+<% } %>
+
+<%- include("../rodape") %>

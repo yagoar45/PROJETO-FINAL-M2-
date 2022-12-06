@@ -1,0 +1,25 @@
+<%- include("../cabecalho") %>
+
+<form action="/login" method="post">
+	<% if (mensagem) { %>
+		<h2>
+			<%= mensagem %>
+		</h2>
+	<% } %>
+
+	<div>
+		<label for="email">E-mail</label>
+		<input type="email" name="email" id="email" />
+	</div>
+
+	<div>
+		<label for="senha">Senha</label>
+		<input type="password" name="senha" id="senha" />
+	</div>
+
+	<div>
+		<button type="submit">Entrar</button>
+	</div>
+</form>
+
+<%- include("../rodape") %>

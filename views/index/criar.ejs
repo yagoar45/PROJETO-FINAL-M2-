@@ -1,0 +1,79 @@
+<%- include("../cabecalho") %>
+
+<%- include("../cabecalho-usuario") %>
+
+<form id="form">
+
+	<div>
+		<label for="nome">Nome</label>
+		<input type="text" name="nome" id="nome" />
+	</div>
+
+	<div>
+		<label for="email">E-mail</label>
+		<input type="email" name="email" id="email" />
+	</div>
+
+	<div>
+		<label for="foto">Foto</label>
+		<input type="file" name="foto" id="foto" accept="image/jpeg" />
+	</div>
+
+	<div>
+		<button type="submit">Criar Pessoa</button>
+	</div>
+
+</form>
+
+<script type="text/javascript">
+
+	let form = document.getElementById("form"),
+		criandoPessoa = false;
+
+	form.onsubmit = function (e) {
+		e.preventDefault();
+
+		criarPessoa();
+
+		return false;
+	};
+
+	async function criarPessoa() {
+		if (criandoPessoa) {
+			return;
+		}
+
+		try {
+			criandoPessoa = true;
+
+			// Para poder enviar aquivos, e usar o middleware multer,
+			// o body da requisição deve conter dados no formato multipart/form-data.
+			// Isso é obtido através da classe FormData (em JavaScript), ou através
+			// do uso do atributo enctype="multipart/form-data" direto no elemento
+			// form do HTML, caso não fosse utilizado fetch()!
+
+			const opcoes = {
+				method: "post",
+				body: new FormData(form)
+			};
+
+			const response = await fetch("/criar", opcoes);
+
+			if (!response.ok) {
+				alert("Ocorreu um erro ao criar a pessoa!");
+				return;
+			}
+
+			form.reset();
+
+			alert("Pessoa criada com sucesso!");
+		} catch (ex) {
+			alert("Ocorreu um erro de rede ao criar a pessoa: " + ex.message);
+		} finally {
+			criandoPessoa = false;
+		}
+	}
+
+</script>
+
+<%- include("../rodape") %>
